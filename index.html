@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Presentation Presentation</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/goL.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+        <script src="lib/js/d3.js"></script>
+        <script src="lib/js/jquery-3.4.1.min.js"></script>
+        <script src="lib/js/jquery.csv.js"></script> 
+        <script src="lib/js/math.min.js"></script> 
+        <script src="lib/js/dat.gui.js"></script> 
+        <script src="lib/js/tween.umd.js"></script> 
+        <script src="js/threex.keyboardstate.js"></script>
+        <script src="js/reveal.helpers.js"></script>
+        <script src="js/shifty_plt.js"></script>
+        <script src="js/fetch.data.js"></script>
+        <script type="module" src="js/kernel_densities.js"></script>
+        <script src="js/meanshifts.js"></script>
+        <script src="js/meanshifts2.js"></script>
+        <script src="js/lsvm.js"></script>
+        <script src="js/trig_circle.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+
+	</head>
+	<body>
+        <canvas id="drawer" class="full" style="z-index: 0;"></canvas>
+        <div class="header"><img height="100%" src="static/usa_red.png"></img></div> 
+		<div class="reveal">
+			<div class="slides">
+                <section>
+                    <div style="height: 20vh;"></div><!--spacer-->
+                    <h2> A presentation about this presentation. </h2> 
+                    <p> CScott Brown </p>
+ 
+                </section><section>
+                    <div> <h4> The Agenda </h4> </div>
+                    <div class="texty middly"> 
+                        <div class="centered"><ul>
+                            <li> <b> Browser Presentations </b> </li>
+                            <li> <b> Interactive Examples </b> </li>
+                            <li> <b> State of Libraries for Doing This Stuff </b> </li>
+                        </ul></div>
+                    </div>
+
+                </section><section>
+                    <div> <h4> Browser Presentations </h4> </div>
+                    <div class="texty">
+                        This looks just like powerpoint.... Why go through the effort?
+                        <div class="texty lefty">
+                            <h4 class="fragment"> Cons: </h4>
+                            <ul>
+                                <li class="fragment"> Have to learn HTML/CSS/JS </li>
+                                <li class="fragment"> Webhosting </li>
+                                <li class="fragment"> Layout is harder </li>
+                                <li class="fragment"> Resolution robustness is harder </li>
+                                <li class="fragment"> Wait, did you say I need to learn HTML/CSS/JS? </li>
+                            </ul>
+                        </div>
+                        <div class="texty righty"> 
+                            <h4 class="fragment"> Pro: </h4>
+                            <ul>
+                                <li class="fragment"> Interactivity! </li>
+                                <ul>
+                                    <li class="fragment"> Extensible </li>
+                                    <li class="fragment"> Portable </li>
+                                </ul>
+                            </ul>
+                        </div>
+
+                </section><section>
+
+                    <div> <h4> Interactive presentation: Prerequisites </h4> </div> 
+                    <div class="lefty texty"> 
+                        <ol>
+                            <li class="fragment"> A learning objective </li>
+                            <li class="fragment"> Some way to visualize it </li>
+                            <li class="fragment"> A reason to interact with it </li>
+                            <li class="fragment"> A way to interact with it </li>
+                        </ol>
+                    </div>
+
+                </section><section>
+
+                    <div style="height: 20vh;"></div><!--spacer-->
+                    <h2> Some Examples </h2> 
+
+                </section><section>
+
+                    <div> <h4> Trigonometry </h4> </div> 
+                    <div class="middly texty"> The sine of the angle formed by a point $(x,y)$ on the unit circle, the origin, and $(1,0)$ is equal to $y$.
+                    </div>
+                
+                </section><section id="trig-circle-section">
+
+                    <div> <h4> Trigonometry </h4> </div> 
+                    <div id="trig-canvas" class="lefty"></div>
+                    <div id="sin-canvas" class="righty fragment"></div>
+
+                </section><section>
+                    
+                    <div> <h4> Mean Shift </h4> </div> 
+                    <div class="texty"> 
+                        <ul>
+                            <li> Find the stationary points of the locally weighted mean of some data </li>
+                            $$ q=\frac{\sum x K(x,q)}{\sum K(x,q)} $$
+                        </ul>
+                    </div>
+
+                </section><section>
+
+                    <div> <h4> Mean Shift </h4> </div> 
+                    <div id="meanshifts-canvas" class="lefty"></div>
+                    <div id="meanshifts2-canvas" class="righty"></div>
+                
+
+
+                </section><section data-transition="none-out slide-in">
+
+                    <h3> Kernel Density (Gaussian Kernel) </h3>
+                    <div class="lefty">
+                        <div class="left-mj">
+                            $$\scriptsize {\rm I\!P}(\mathbf{q}) = \sum_{\mathbf{x} \in X} K_h(\mathbf{q},\mathbf{x}) $$
+                        </div>
+                        <div class="fragment left-mj"> 
+                            $$\scriptsize {\rm I\!P}(\mathbf{q}) = \sum_{\mathbf{x} \in X} e^{
+                            -\frac{1}{2}\left(\frac{||\mathbf{x} - \mathbf{q}||}{h}\right)^2} $$ 
+                        </div>
+                        <div class="fragment left-mj">
+                            $$\scriptsize \frac{\partial{\rm I\!P}}{\partial \mathbf{q}} = 
+                            \sum_{\mathbf{x} \in X} K_h(\mathbf{q}, \mathbf{x})
+                            \frac{\partial}{\partial \mathbf{q}} \frac{-1}{2}\left(\frac{||\mathbf{x}-\mathbf{q}||}{h} \right)^2$$
+                        </div>
+                    </div>
+                    <div class="righty">
+                        <div class="fragment left-mj">
+                         $$\scriptsize ||\mathbf{x} - \mathbf{q}||^2 = \mathbf{x}^T\mathbf{x} - 2\mathbf{x}^T\mathbf{q} + \mathbf{q}^T\mathbf{q} $$
+                        </div>
+                        <div class="fragment left-mj">
+                            $$\scriptsize \frac{\partial{\rm I\!P}}{\partial \mathbf{q}} = 
+                                \frac{1}{h^2} \sum_{\mathbf{x} \in X} K_h(\mathbf{q}, \mathbf{x})
+                                (\mathbf{x} - \mathbf{q}) $$
+                        </div>
+                    </div>
+                </section>
+                
+                <section data-transition="none-in slide-out">
+                    <h3> Kernel Density (Gaussian Kernel) </h3>
+                    <div class="lefty">
+                        <div class="left-mj">
+                            $$\scriptsize \frac{\partial{\rm I\!P}}{\partial \mathbf{q}} = 
+                                \frac{1}{h^2} \sum_{\mathbf{x} \in X} K_h(\mathbf{q}, \mathbf{x})
+                                (\mathbf{x} - \mathbf{q}) $$
+                        </div>
+                        <div class="fragment left-mj">
+                            $$\scriptsize \frac{\sum_{\mathbf{x} \in X} \mathbf{x} K_h(\mathbf{q},\mathbf{x})}
+                                          {\sum_{\mathbf{x} \in X} K_h(\mathbf{q},\mathbf{x})} = \mathbf{q} +
+                              \frac{\partial{\rm I\!P}}{\partial \mathbf{q}} 
+                              \frac{h^2}{\sum_{\mathbf{x} \in X} K_h(\mathbf{q},\mathbf{x})} $$
+                        </div>
+                    </div>
+                    <div class="righty">
+                    </div>
+                    <div class="fragment" style="display:inline-block;">
+                        <p style="color: red;"> Mean Shift == Gradient Ascent on the Kernel Density Function! </p>
+                    </div>
+
+                </section><section>
+
+                    <h3> Kernel Density </h3>
+                    <p id="kdinitial" class="fragment"></p>
+                    <p id="kdrotator" class="fragment"></p>
+                    <p id="kdgrower" class="fragment"></p>
+                    <p id="kdleaving" class="fragment"></p>
+                    <div class="lefty"><canvas id="kd-canvas"></canvas></div>
+                    <div class="righty"> $${\rm I\!P}(\mathbf{q}) = \sum_{\mathbf{x} \in X} K_h(\mathbf{q},\mathbf{x})$$ </div>
+
+                </section><section>
+                    <div class="slightly-lefty">
+                        <div class="go-right"><button class="gol-button" type="button" onClick="newUniv()">New</button></div>
+                        <div class="go-right"><button class="gol-button" type="button" onClick="startUniv()" id='startBtn'>Pause</button></div>
+                        <div class="go-right"><select class="gol-select" onchange="changeUniv(this)"></select></div>
+                    </div>
+                    <div class="mostly-righty">
+                        <svg id="gol-canvas" width='796' height='448'></svg>
+                    </div>
+                    <div class="footnotey">
+                        Thanks to <a href="https://gist.github.com/NPashaP">NPashaP</a> for <a href="https://gist.github.com/NPashaP/f1e73faef87bee899b47">these game of life codez</a>
+                    </div>
+
+                </section><section>
+
+                    <div style="height: 20vh;"></div><!--spacer-->
+                    <h2> Supporting JS Libraries for Interactive Presentations </h2> 
+
+                </section><section>
+
+                    <div> <h4> RevealJS </h4> </div> 
+                    <div class="texty"> 
+                        <ol>
+                            <li class="fragment"> Helps make a "powerpoint"-y layout </li>
+                            <li class="fragment"> There's a dozen others </li>
+                            <li class="fragment"> Not much to see here </li>
+                        </ol>
+                    </div>
+
+                </section><section>
+
+                    <div> <h4> MathJax </h4> </div> 
+                    <div class="texty"> 
+                        <ol>
+                            <li class="fragment"> Renders LaTeX equations
+                                $$ e^{i \pi} + 1 = 0 $$
+                            </li>
+                            <li class="fragment"> Incredibly Heavy or... </li>
+                            <li class="fragment"> Internet connection </li>
+                        </ol>
+                    </div>
+
+                </section><section>
+
+                    <div> <h4> D3 </h4> </div> 
+                    <div class="texty"> 
+                        <ol>
+                            <li class="fragment"> D3 = "Data Driven Documents" </li>
+                            <li class="fragment"> Specifically designed for making pretty pictures from data </li>
+                            <li class="fragment"> 2D </li>
+                            <li class="fragment"> Low-level </li>
+                        </ol>
+                    </div>
+                
+                </section><section>
+
+                    <div> <h4> Three.js </h4> </div> 
+                    <div class="texty"> 
+                        <ol>
+                            <li class="fragment"> WebGL 3D/2D on the local GPU </li>
+                            <li class="fragment"> WebGL is extremely low-level </li>
+                            <li class="fragment"> Three.js is medium-level </li>
+                            <li class="fragment"> Three.js has lots of interative freebies </li>
+                        </ol>
+                    </div>
+                
+                </section><section>
+
+                    <div> <h4> Sum up </h4> </div> 
+                    <div class="texty"> 
+                        <ol>
+                            <li class="fragment"> Pretty Browser-based Math presentations are easier than ever before </li>
+                            <li class="fragment"> ...But they're not <em>that</em> easy </li>
+                            <li class="fragment"> ...But there's infinite opportunity! </li>
+                            <li class="fragment">  </li>
+                        </ol>
+                    </div>
+
+
+                </section>
+
+			
+            </div>
+		</div>
+
+        <script src="js/goL_games.js"></script>
+        <script src="js/goL.js"></script>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+                width: "100%",
+                height: "100%",
+                margin: 0,
+                minScale: 1,
+                maxScale: 1,
+                hash: true,
+                center: false,
+                controls: false,
+                help: false,
+                pdfSeparateFragments: false,
+                transition: "none",
+                math: {
+                    config: "TeX-MML-AM_SVG"
+                },
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+		</script>
+        <script>
+            var full_drawpad_canvas = document.getElementById("drawer");
+            var full_drawpad = new SignaturePad(full_drawpad_canvas, {penColor: "rgb(255,0,0)"});
+            function drawListener(e) {
+                if (e.code === "KeyC") full_drawpad.clear();
+                if (e.code === "KeyM") $(full_drawpad_canvas).css('z-index', (($(full_drawpad_canvas).css('z-index')/1000+1)%2)*1000)
+            }
+            document.addEventListener('keydown', drawListener);
+            function resizeCanvas() {
+                full_drawpad_canvas.width = full_drawpad_canvas.clientWidth;
+                full_drawpad_canvas.height = full_drawpad_canvas.clientHeight;
+                full_drawpad.clear();
+            }
+
+            window.addEventListener("resize", resizeCanvas);
+            resizeCanvas();
+        </script>
+	</body>
+</html>

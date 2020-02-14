@@ -1,0 +1,21 @@
+		.gol-rect{
+			stroke:rgba(204, 204,204,0.2);
+			shape-rendering:crispEdges;
+		}
+		.edit:hover{
+			stroke:steelblue;
+			cursor:pointer;
+		}
+		.gol-select{
+			width:80px;
+            display: block;
+		}
+		.gol-button{
+			min-width:50px;
+			padding: 0 40px;
+            display: block;
+		}
+        .go-right{
+            float:right;
+            clear:both;
+        }

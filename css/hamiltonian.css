@@ -1,0 +1,21 @@
+      .range-text {
+        width: 25px;
+      }
+      .hamiltonian-circle {
+        cursor: move;
+      }
+      .magic-vertex {
+        fill-opacity: 0;
+        stroke: #999;
+        stroke-opacity: 0;
+      }
+      .vertex {
+        fill: #1f77b4;
+        fill-opacity: 1;
+        stroke: #999;
+        stroke-opacity: .5;
+      }
+      .link {
+        stroke: #999;
+        stroke-opacity: 1;
+      }
